@@ -1,8 +1,11 @@
 package Blog.Project.services;
 
 
+import Blog.Project.entity.Post;
 import Blog.Project.paylods.PostDto;
 import Blog.Project.paylods.PostResponse;
+
+import java.util.List;
 
 public interface PostService {
 
@@ -16,7 +19,7 @@ public interface PostService {
     void deletePost(Integer postId);
 
     //get all
-    PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize,String shortBy);
 
     //get by id
     PostDto getPostById(Integer postId);
@@ -27,5 +30,8 @@ public interface PostService {
     //get all posts by user
     PostResponse getPostByUser(Integer userId, Integer pageNumber, Integer pageSize);
 
+
+    //search post
+    List<PostDto> searchPost(String keyword);
 
 }

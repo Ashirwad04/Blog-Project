@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -71,8 +72,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse getAllPosts(Integer pageNumber, Integer pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+    public PostResponse getAllPosts(Integer pageNumber, Integer pageSize,String shortBy) {
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize,Sort.by(shortBy));
         Page<Post> pagePost = this.postRepository.findAll(pageable);
         List<Post> content = pagePost.getContent();
 
@@ -143,4 +145,16 @@ public class PostServiceImpl implements PostService {
 
         return postResponse;
     }
+
+
+
+    @Override
+    public List<PostDto> searchPost(String keyword) {
+        List<Post> posts = this.postRepository.findByTitleContaining(keyword);
+        List<PostDto> postDtos = posts.stream()
+                .map(post -> this.modelMapper.map(post, PostDto.class)) // Correct mapping
+                .collect(Collectors.toList());
+        return postDtos;
+    }
+
 }
