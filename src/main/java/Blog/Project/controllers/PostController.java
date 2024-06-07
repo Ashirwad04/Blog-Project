@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/")
 public class PostController {
@@ -48,8 +50,11 @@ public class PostController {
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPosts(
             @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
-        PostResponse postsResponse = this.postService.getAllPosts(pageNumber, pageSize);
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+            @RequestParam(value = "shortBy",defaultValue = "postId",required = false)String shortBy
+           ) {
+
+        PostResponse postsResponse = this.postService.getAllPosts(pageNumber, pageSize,shortBy);
         return new ResponseEntity<>(postsResponse, HttpStatus.OK);
     }
 
@@ -80,6 +85,16 @@ public class PostController {
         return new ResponseEntity<>(postsResponse, HttpStatus.OK);
     }
 
+
+    //search
+    @GetMapping("/posts/search/{keywords}")
+    public ResponseEntity<List<PostDto>> searchPostByTitle(
+            @PathVariable("keywords") String keywords
+    ){
+        List<PostDto> result=  this.postService.searchPost(keywords);
+        return new ResponseEntity<List<PostDto>>(result,HttpStatus.OK);
+
+    }
 
 }
 
