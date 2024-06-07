@@ -1,43 +1,31 @@
 package Blog.Project.services;
 
-import Blog.Project.paylods.PostDto;
 
-import java.util.List;
+import Blog.Project.paylods.PostDto;
+import Blog.Project.paylods.PostResponse;
 
 public interface PostService {
 
     //create
-    PostDto createPost(PostDto postDto,Integer userId,Integer categoryId);
+    PostDto createPost(PostDto postDto, Integer userId, Integer categoryId);
 
     //update
-
     PostDto updatePost(PostDto postDto, Integer postId);
 
     //delete
-
     void deletePost(Integer postId);
 
-
     //get all
-    List<PostDto> getAllPosts();
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
 
-    //get BY id
+    //get by id
     PostDto getPostById(Integer postId);
 
+    //get all posts by category
+    PostResponse getPostByCategory(Integer categoryId, Integer pageNumber, Integer pageSize);
 
-    //get all post by category
-
-    List<PostDto> getPostByCategory(Integer categoryId);
-
-
-    //get all post by user
-
-    List<PostDto> getPostByUser(Integer userId);
-
-
-    //search post
- //   List<PostDto> searchPost(String keyword);
-
+    //get all posts by user
+    PostResponse getPostByUser(Integer userId, Integer pageNumber, Integer pageSize);
 
 
 }
