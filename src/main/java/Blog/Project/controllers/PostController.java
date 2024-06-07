@@ -2,6 +2,7 @@ package Blog.Project.controllers;
 
 
 
+import Blog.Project.config.AppConstant;
 import Blog.Project.paylods.ApiResponse;
 import Blog.Project.paylods.PostDto;
 import Blog.Project.paylods.PostResponse;
@@ -49,8 +50,8 @@ public class PostController {
     // Get all posts
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPosts(
-            @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+            @RequestParam(value = "pageNumber", defaultValue = AppConstant.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstant.PAGE_SIZE, required = false) Integer pageSize,
             @RequestParam(value = "shortBy",defaultValue = "postId",required = false)String shortBy
            ) {
 
@@ -69,8 +70,8 @@ public class PostController {
     @GetMapping("/category/{categoryId}/posts")
     public ResponseEntity<PostResponse> getPostByCategory(
             @PathVariable Integer categoryId,
-            @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+            @RequestParam(value = "pageNumber", defaultValue = AppConstant.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstant.PAGE_SIZE, required = false) Integer pageSize) {
         PostResponse postsResponse = this.postService.getPostByCategory(categoryId, pageNumber, pageSize);
         return new ResponseEntity<>(postsResponse, HttpStatus.OK);
     }
@@ -79,8 +80,8 @@ public class PostController {
     @GetMapping("/user/{userId}/posts")
     public ResponseEntity<PostResponse> getPostByUser(
             @PathVariable Integer userId,
-            @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+            @RequestParam(value = "pageNumber", defaultValue = AppConstant.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstant.PAGE_SIZE, required = false) Integer pageSize) {
         PostResponse postsResponse = this.postService.getPostByUser(userId, pageNumber, pageSize);
         return new ResponseEntity<>(postsResponse, HttpStatus.OK);
     }
