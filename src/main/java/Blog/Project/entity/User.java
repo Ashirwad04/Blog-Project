@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Empty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,6 +43,10 @@ public class User {
     @Size(min=4,message="User name must be greater then 4 character  ")
     @Column(name = "name")
     private String name;
+
+
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private List<Post> posts=new ArrayList<Post>();
 
 }
 
